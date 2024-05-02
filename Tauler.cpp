@@ -59,7 +59,7 @@ bool Tauler::colisiona(Figura& figura) const //Funció per comprobar les col·li
 		}
 	}
 
-	if (((x + amplada) > MAX_COL) && (!colisiona)) //Si la coordenada 'x' se surt del taulell per la dreta (overflow del tauler)
+	if (((x + amplada) > MAX_COL) && (!colisiona)) //Si la coordenada 'x' + amplada (límit de la figura) se surt del taulell per la dreta (overflow del tauler)
 	{
 		int i = 0; 
 		int j = MAX_COL - x; //Columna en la que es troben les coordenades de referència de la figura.
@@ -77,7 +77,7 @@ bool Tauler::colisiona(Figura& figura) const //Funció per comprobar les col·li
 		}
 	}
 
-	if (((y + alcada) > MAX_FILA) && (!colisiona)) //Si la coordenada 'y' se surt del taulell per sota (overflow del taulell)
+	if (((y + alcada) > MAX_FILA) && (!colisiona)) //Si la coordenada 'y' + alçada (límit de la figura) se surt del taulell per sota (overflow del taulell)
 	{
 		int j = 0;
 		int i = MAX_FILA - y; //Fila en la que es troben les coordenades de referència de la figura.
