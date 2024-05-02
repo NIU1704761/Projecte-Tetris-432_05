@@ -5,9 +5,9 @@ void Joc::inicialitza(const string& nomFitxer) //Inicialitzem la situació de jo
 	ifstream fitxer;
 	fitxer.open(nomFitxer); //Obrim el fitxer.
 
-	if (fitxer.is_open())
+	if (fitxer.is_open()) //Si el fitxer està obert.
 	{
-		int tipus, fila, columna, nGirs;
+		int tipus, fila, columna, nGirs; //Declarem variables per guardar la informació sobre la figura del fitxer.
 
 		fitxer >> tipus >> fila >> columna >> nGirs; //Llegim el fitxer i assignem la informació de la figura.
 
@@ -20,7 +20,7 @@ void Joc::inicialitza(const string& nomFitxer) //Inicialitzem la situació de jo
 			m_figura.girar(GIR_HORARI);
 		}
 
-		int casella;
+		int casella; //Variable per guardar el valor de cada casella dins del tauler que indica el fitxer.
 		for (int i = 0; i < MAX_FILA; i++)
 		{
 			for (int j = 0; j < MAX_COL; j++)
@@ -40,7 +40,7 @@ void Joc::escriuTauler(const string& nomFitxer) //Funció per reescriure el fitx
 	ofstream fitxer;
 	fitxer.open(nomFitxer); //Obrim el fitxer.
 
-	if (fitxer.is_open())
+	if (fitxer.is_open()) //Si el fitxer està obert.
 	{
 		ColorFigura actualTauler[MAX_FILA][MAX_COL]; //Matriu per representar el tauler actual.
 		m_tauler.getMatriu(actualTauler, m_figura); //Assignem a la matriu anterior la informació del tauler i de la figura.
@@ -58,36 +58,36 @@ void Joc::escriuTauler(const string& nomFitxer) //Funció per reescriure el fitx
 
 int Joc::baixaFigura() //Funció per baixar la figura.
 {
-	int nElim = 0;
-	bool noBaixa;
+	int nElim = 0; //Número de files eliminades.
+	bool noBaixa; //Booleà per indicar si baixar és possible o no.
 
 	Figura temp = m_figura; //Creem una figura temporal per comprobar si pot baixar.
 	temp.baixar(); //La baixem.
 	noBaixa = m_tauler.colisiona(temp); //Comprovem si colisiona.
 
-	if (!noBaixa)
+	if (!noBaixa) //Si no colisiona, baixem la figura.
 	{
-		m_figura.baixar(); //Si no colisiona, baixem la figura. 
+		m_figura.baixar(); 
 
 	}
-	else
+	else //Si colisiona, coloquem la figura.
 	{
-		ColorFigura copiaFigura[MAX_ALCADA][MAX_AMPLADA];
-		m_figura.getMatriu(copiaFigura);
-		int x, y, amplada, alcada;
+		ColorFigura copiaFigura[MAX_ALCADA][MAX_AMPLADA]; //Treballem sobre una copia de la figura.
+		m_figura.getMatriu(copiaFigura); //Obtenim la figura.
+		int x, y, amplada, alcada; //Declarem variables per guardar les dades de la figura.
 
-		x = m_figura.getX();
-		y = m_figura.getY();
-		amplada = m_figura.getAmplada();
-		alcada = m_figura.getAlcada();
+		x = m_figura.getX(); //Guardem la coordenada 'x' de referència.
+		y = m_figura.getY(); //Guardem la coordenada 'y' de referència.
+		amplada = m_figura.getAmplada(); //Guardem l'amplada de la figura.
+		alcada = m_figura.getAlcada(); //Guardem l'alçada de la figura.
 
-		for (int i = 0; i < alcada; i++)
+		for (int i = 0; i < alcada; i++) //Accedim a tota la matriu de la figura (columnes)
 		{
-			for (int j = 0; j < amplada; j++)
+			for (int j = 0; j < amplada; j++) //Accedim a tota la matriu de la figura (files)
 			{
-				if (copiaFigura[i][j] != COLOR_NEGRE)
+				if (copiaFigura[i][j] != COLOR_NEGRE) //Si la posició de la figura no és de color negre.
 				{
-					m_tauler.setCasella(copiaFigura[i][j], y + i, x + j); //Si colisiona, la col·loquem dins del tauler a la posició en la que s'ha quedat.
+					m_tauler.setCasella(copiaFigura[i][j], y + i, x + j); //La col·loquem dins del tauler a la posició en la que s'ha quedat (y + i, x + j).
 				}
 			}
 		}
@@ -96,7 +96,7 @@ int Joc::baixaFigura() //Funció per baixar la figura.
 		m_figura.inicilitza(NO_FIGURA, 0, 0); //Modifiquem els valors de la figura per tal que estigui buida, ja que ja s'ha col·locat i forma part del tauler.
 	}
 
-	return nElim;
+	return nElim; //Retornem el número de files eliminades.
 }
 
 bool Joc::mouFigura(int dirX) //Funció per moure una figura.
@@ -123,9 +123,9 @@ bool Joc::giraFigura(DireccioGir direccio) //Funció per girar una figura.
 	temp.girar(direccio); //Girem la temporal.
 	noGira = m_tauler.colisiona(temp); //Comprovem si col·lisiona.
 
-	if (!noGira)
+	if (!noGira) //Si no col·lisiona girem la figura.
 	{
-		m_figura.girar(direccio); //Si no col·lisiona girem la figura.
+		m_figura.girar(direccio);
 	}
 
 	return noGira; //Retornem si el gir és possible o no.
