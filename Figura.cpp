@@ -20,10 +20,10 @@ Figura::Figura() //Inicialitzem totes les variables privades de Figura a 0.
 
 void Figura::inicilitza(TipusFigura figura, int x, int y) //Inicialitzem cada figura.
 {
-	m_x = x;
-	m_y = y;
-	m_color = (ColorFigura)figura;
-	m_tipus = figura;
+	m_x = x; //Assignem variable x a la coordenada 'x' de referència
+	m_y = y; //Assignem variable y a la coordenada 'y' de referència
+	m_color = (ColorFigura)figura; //Assignem al color de la figura el color associat al tipus de figura.
+	m_tipus = figura; //Assignem variable figura al tipus de figura.
 
 	ColorFigura matriu[MAX_AMPLADA][MAX_ALCADA]; //Matriu per representar la figura, inicialitzada en negre.
 
@@ -31,23 +31,23 @@ void Figura::inicilitza(TipusFigura figura, int x, int y) //Inicialitzem cada fi
 	{
 		for (int j = 0; j < MAX_ALCADA; j++)
 		{
-			matriu[i][j] = COLOR_NEGRE;
+			matriu[i][j] = COLOR_NEGRE; //Cada una de les posicions de la matriu que representa la figura s'inicialitza de color negre
 		}
 	}
 
 	switch (figura)
 	{
-	case NO_FIGURA: //Tota la matriu negre.
-		m_alcada = 0;
-		m_amplada = 0;
+	case NO_FIGURA: //Tota la matriu negra.
+		m_alcada = 0; //Com que no hi ha figura, l'alçada és 0.
+		m_amplada = 0; //Com que no hi ha figura, l'amplada és 0.
 		break;
 	case FIGURA_O: //Representar la figura en 2x2
-		m_amplada = 2;
+		m_amplada = 2; 
 		m_alcada = 2;
 
 		for (int i = 0; i < 2; i++)
 			for (int j = 0; j < 2; j++)
-				matriu[i][j] = COLOR_GROC;
+				matriu[i][j] = COLOR_GROC; 
 		break;
 	case FIGURA_I: //Representar la figura en 1x4
 		m_amplada = 4;
@@ -119,7 +119,7 @@ void Figura::inicilitza(TipusFigura figura, int x, int y) //Inicialitzem cada fi
 
 void Figura::transposarMatriu() //Funció per transposar una matriu.
 {
-	ColorFigura temp;
+	ColorFigura temp; //Valor temporal per guardar el valor d'una posició de la matriu.
 	ColorFigura matriu[MAX_ALCADA][MAX_AMPLADA];
 
 	for (int i = 0; i < MAX_ALCADA; i++)
@@ -132,11 +132,11 @@ void Figura::transposarMatriu() //Funció per transposar una matriu.
 
 	for (int i = 0; i < m_alcada; i++) // Intercanviar files per columnes 1 cop.
 	{
-		for (int j = i + 1; j < m_amplada; j++)
+		for (int j = i + 1; j < m_amplada; j++) //Comencem a j = i + 1 precisament per accedir als valors del voltant de la diagonal.
 		{
-			temp = matriu[i][j];
-			matriu[i][j] = matriu[j][i];
-			matriu[j][i] = temp;
+			temp = matriu[i][j]; //Guardem un valor a 'temp'.
+			matriu[i][j] = matriu[j][i]; //Intercanviem valors al llarg de la diagonal (la matriu serà idèntica a cada costat de la diagonal).
+			matriu[j][i] = temp; //Assignem els valors guardats a 'temp' a una meitat de la diagonal, de manera que s'ha transposat la matriu.
 		}
 	}
 
@@ -169,9 +169,9 @@ void Figura::girHorari() //Funció que defineix el gir horari de la figura.
 		int meitat = m_amplada / 2;
 		for (int j = 0; j < meitat; j++) // Intercanviem columnes únicament un cop (no fas el recorregut sencer per no retornar la matriu original).
 		{
-			temp = matriu[i][j];
-			matriu[i][j] = matriu[i][m_amplada - 1 - j];
-			matriu[i][m_amplada - 1 - j] = temp;
+			temp = matriu[i][j]; //Guardem un valor de la matriu figura a 'temp'.
+			matriu[i][j] = matriu[i][m_amplada - 1 - j]; //Guardem el valor de la mateixa 'i' però la 'j' oposada a la posició de la figura.
+			matriu[i][m_amplada - 1 - j] = temp; //Guardem el valor 'temp' a la posició de la figura a la que hem accedit abans.
 		}
 	}
 
@@ -204,9 +204,9 @@ void Figura::girAntihorari() //Funció que defineix el gir antihorari de la figu
 		int meitat = m_alcada / 2;
 		for (int i = 0; i < meitat; i++) // Intercanviem files únicament un cop (no fas el recorregut sencer per no retornar la matriu original).
 		{
-			temp = matriu[i][j];
-			matriu[i][j] = matriu[m_alcada - 1 - i][j];
-			matriu[m_alcada - 1 - i][j] = temp;
+			temp = matriu[i][j]; //Guardem el valor d'una posició de la matriu figura a 'temp'.
+			matriu[i][j] = matriu[m_alcada - 1 - i][j]; //Assignem a aquesta posició el valor de la fila oposada dins de la matriu.
+			matriu[m_alcada - 1 - i][j] = temp; //A aquesta última posició a la que hem accedit li assignem 'temp'.
 		}
 	}
 
@@ -221,10 +221,10 @@ void Figura::girAntihorari() //Funció que defineix el gir antihorari de la figu
 
 void Figura::girar(DireccioGir gir) //Funció que implementa els dos tipus de girs.
 {
-
+	//En funció del tipus de gir, horari o antihorari, es crida a la funció corresponent.
 	if (gir == GIR_HORARI)
 	{
-		girHorari();
+		girHorari(); 
 	}
 	else
 	{
@@ -238,7 +238,7 @@ void Figura::getMatriu(ColorFigura matriu[MAX_ALCADA][MAX_AMPLADA]) const //Func
 	{
 		for (int j = 0; j < m_amplada; j++)
 		{
-			matriu[i][j] = m_figura[i][j];
+			matriu[i][j] = m_figura[i][j]; //Cada valor de la matriu s'inicialitza amb el valor de m_figura a la mateixa posició.
 		}
 	}
 }
